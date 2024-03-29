@@ -2,11 +2,12 @@
  * File: csci1302/ch16/MileageCalculator.java
  * Package: ch16
  * @author Christopher Williams
+ * Modified by: Rachael Caropreso, Jason Do, Charles Hayslip
  * Created on: Apr 12, 2017
- * Last Modified: Mar 25, 2024
+ * Last Modified: Mar 29, 2024
  * Description:  
  */
-package ch16;
+package Lab09;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -65,6 +66,10 @@ public class MileageCalculatorNoConversionRadio extends Application {
         mainPane.setHgap(txtWidth/2.0);
         mainPane.setVgap(txtWidth/12.0);
         
+        // Task 1 add radio buttons to the toggle group
+        rbMPG.setToggleGroup(tgConv);
+        rbKPL.setToggleGroup(tgConv);
+        
         // add items to mainPane
         mainPane.add(lblEffType, 0, 0);
 
@@ -77,10 +82,18 @@ public class MileageCalculatorNoConversionRadio extends Application {
         mainPane.add(btnReset, 0, 5);
         mainPane.add(btnCalc, 1, 5);
         
+        // Task 2 add radio buttons to GridPane
+        mainPane.add(rbMPG, 0, 1);
+        mainPane.add(rbKPL, 1, 1);
+        
         // register action handlers
         btnCalc.setOnAction(e -> calcMileage());
 
         btnReset.setOnAction(e -> resetForm());
+        
+        // Task 3 - Call changeLabels() method for radio buttons
+        rbMPG.setOnAction(e -> changeLabels());
+        rbKPL.setOnAction(e -> changeLabels());
         
         // create a scene and place it in the stage
         Scene scene = new Scene(mainPane); 
