@@ -77,7 +77,11 @@ public class MileageCalculatorNoConversionRadio extends Application {
         mainPane.add(btnReset, 0, 5);
         mainPane.add(btnCalc, 1, 5);
         
-        // register action handlers
+        // Task 1 Add radio buttons to the toggle group
+	rbMPG.setToggleGroup(tgConv);
+	rbKPL.setToggleGroup(tgConv);
+	    
+	// register action handlers
         btnCalc.setOnAction(e -> calcMileage());
 
         btnReset.setOnAction(e -> resetForm());
