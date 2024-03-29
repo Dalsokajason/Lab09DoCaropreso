@@ -2,11 +2,12 @@
  * File: csci1302/ch16/MileageCalculator.java
  * Package: ch16
  * @author Christopher Williams
+ * Modified by: Rachael Caropreso, Jason Do, Charles Hayslip
  * Created on: Apr 12, 2017
- * Last Modified: Mar 25, 2024
+ * Last Modified: Mar 29, 2024
  * Description:  
  */
-package ch16;
+package Lab09;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -65,6 +66,10 @@ public class MileageCalculatorNoConversionRadio extends Application {
         mainPane.setHgap(txtWidth/2.0);
         mainPane.setVgap(txtWidth/12.0);
         
+        // Task 1 add radio buttons to the toggle group
+        rbMPG.setToggleGroup(tgConv);
+        rbKPL.setToggleGroup(tgConv);
+        
         // add items to mainPane
         mainPane.add(lblEffType, 0, 0);
 
@@ -77,10 +82,23 @@ public class MileageCalculatorNoConversionRadio extends Application {
         mainPane.add(btnReset, 0, 5);
         mainPane.add(btnCalc, 1, 5);
         
+        // Task 2 add radio buttons to GridPane
+        mainPane.add(rbMPG, 0, 1);
+        mainPane.add(rbKPL, 1, 1);
+        
         // register action handlers
         btnCalc.setOnAction(e -> calcMileage());
 
         btnReset.setOnAction(e -> resetForm());
+        
+        // Task 3 - Call changeLabels() method for radio buttons
+        rbMPG.setOnAction(e -> changeLabels());
+        rbKPL.setOnAction(e -> changeLabels());
+        
+        // Task 4 - Call calMilage() on enter
+        tfDistance.setOnAction(e -> calcMileage());
+        tfCapacity.setOnAction(e -> calcMileage());
+        tfResult.setOnAction(e -> calcMileage());
         
         // create a scene and place it in the stage
         Scene scene = new Scene(mainPane); 
@@ -131,9 +149,14 @@ public class MileageCalculatorNoConversionRadio extends Application {
         // check for type of calculation
         double result = 0.0;
         
-       	// MPG
-       	result = (capacity != 0) ? distance/capacity : 0;       	
-    
+        // Task 5 Update KPL mileage calculator
+        if(rbMPG.isSelected()) {
+        	// MPG
+        	result = (capacity != 0) ? distance/capacity : 0;       	
+        } else if (rbKPL.isSelected()) {
+        	// KPL
+        	result = (capacity != 0) ? capacity / distance * 100 : 0; 	
+        }
 	    // update calculation fields with currency formatting
         tfResult.setText(String.format("%.2f", result));
     }
